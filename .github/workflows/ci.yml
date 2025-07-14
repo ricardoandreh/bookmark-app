@@ -54,7 +54,7 @@ jobs:
       - name: Detect affected projects
         id: affected
         run: |
-          echo "projects=$(pnpm nx print-affected --select=projects)" >> $GITHUB_OUTPUT
+          echo "projects=$(pnpm nx show projects --affected --plain)" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image (api)
         if: contains(steps.affected.outputs.projects, 'api')
