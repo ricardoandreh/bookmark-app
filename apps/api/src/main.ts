@@ -13,7 +13,7 @@ async function bootstrap() {
 
   const cors = await import("@fastify/cors");
   await app.register(cors.default, {
-    origin: ["http://localhost:4200", "http://ui:4200"],
+    origin: true,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   });
