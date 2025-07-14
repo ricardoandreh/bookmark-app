@@ -1,4 +1,3 @@
-// Teste de alteração para CI/CD - API
 import { NestFactory } from "@nestjs/core";
 import {
   FastifyAdapter,
