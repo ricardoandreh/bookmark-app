@@ -18,6 +18,7 @@ async function bootstrap() {
     methods: ["GET", "POST", "PUT", "DELETE"],
   });
 
+  console.log('API iniciada com sucesso!');
   void app.listen(3000, "0.0.0.0");
 }
 
