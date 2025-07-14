@@ -36,7 +36,10 @@ jobs:
 
       - name: Run all tests
         run: pnpm nx run-many --target=test --all --parallel=3 --bail
-
+      
+      - name: Debug Nx projects
+        run: pnpm nx show projects
+      
       - name: Build API
         run: pnpm nx run api:build
 
