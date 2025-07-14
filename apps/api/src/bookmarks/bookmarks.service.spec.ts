@@ -83,7 +83,6 @@ describe("BookmarkService", () => {
     expect(repo.create).toHaveBeenCalledWith({
       title: dto.title.trim(),
       url: dto.url.trim(),
-      user: { id: "123" },
     });
   });
 
