@@ -136,10 +136,13 @@ jobs:
         run: |
           echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if contains(steps.affected.outputs.projects, 'api'); then
+
+          if [[ "${{ steps.affected.outputs.projects }}" == *"api"* ]]; then
             echo "- **API Image**: \`${{ env.IMAGE_NAME }}-api:${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
           fi
-          if contains(steps.affected.outputs.projects, 'ui'); then
+
+          if [[ "${{ steps.affected.outputs.projects }}" == *"ui"* ]]; then
             echo "- **UI Image**: \`${{ env.IMAGE_NAME }}-ui:${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
           fi
+
           echo "- **K8s Repository**: ${{ env.K8S_REPO }}" >> $GITHUB_STEP_SUMMARY
