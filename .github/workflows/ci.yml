@@ -40,11 +40,8 @@ jobs:
       - name: Debug Nx projects
         run: pnpm nx show projects
       
-      - name: Build API
-        run: pnpm nx run api:build
-
-      - name: Build UI
-        run: pnpm nx run ui:build
+      - name: Build all apps
+        run: pnpm nx run-many --target=build --all --parallel=1
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
