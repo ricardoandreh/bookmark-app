@@ -40,8 +40,3 @@ Thumbs.db
 
 # Cursor
 .cursor/
-
-# Docker
-Dockerfile*
-.dockerignore
-compose.yml
