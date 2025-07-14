@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "types": ["node", "jest"],
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "ES2024",
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "outDir": "../../dist/out-tsc",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "skipLibCheck": true,
+    "incremental": true
+  },
+  "exclude": ["jest.config.js", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "include": ["src/**/*.ts"]
+}

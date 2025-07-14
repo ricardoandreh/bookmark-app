@@ -1,44 +1,47 @@
-# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# Build e cache
+/dist/
+/out-tsc/
+/coverage/
+/.nx/
+/.angular/
+/.cache/
+tmp/
+bazel-out/
+*.tsbuildinfo
 
-# compiled output
-dist
-tmp
-out-tsc
+# Node
+/node_modules/
+npm-debug.log*
+yarn-error.log*
 
-# dependencies
-node_modules
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
+# IDEs e editores
+.idea/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/
+*.sublime-workspace
+*.launch
+.project
+.classpath
+.settings/
+.c9/
 
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+# Sistema
 .DS_Store
 Thumbs.db
 
-.nx/cache
-.nx/workspace-data
-.cursor/rules/nx-rules.mdc
-.github/instructions/nx.instructions.md
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# Cursor
+.cursor/
+
+# Docker
+Dockerfile*
+.dockerignore
+compose.yml

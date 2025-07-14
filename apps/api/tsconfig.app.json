@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "rootDir": "./src",
+    "types": ["node"],
+    "module": "commonjs",
+    "target": "es2020",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

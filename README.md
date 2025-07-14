@@ -1,90 +1,145 @@
-# BookmarkApp
+# Bookmark APP
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Bookmark APP é uma aplicação fullstack para gerenciamento de favoritos (bookmarks), composta por um frontend Angular e um backend Node.js (NestJS), ambos organizados em um monorepo Nx. O projeto utiliza banco de dados PostgreSQL e pode ser executado tanto localmente (via PNPM/Nx) quanto em containers Docker (via Docker Compose).
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+---
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Sumário
 
-## Finish your CI setup
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Requisitos](#requisitos)
+- [Instalação e Execução Local (PNPM + Nx)](#instalação-e-execução-local-pnpm--nx)
+- [Execução com Docker Compose](#execução-com-docker-compose)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Comandos Úteis Nx](#comandos-úteis-nx)
+- [Licença](#licença)
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/vtUzOYAbKk)
+---
 
+## Sobre o Projeto
 
-## Generate a library
+O **Bookmark APP** permite que usuários cadastrem, organizem e consultem seus links favoritos. O frontend é construído em Angular, enquanto o backend expõe uma API RESTful (Node.js/NestJS) e utiliza PostgreSQL para persistência dos dados.
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+- **Frontend:** Angular (`apps/ui`)
+- **Backend:** Node.js/NestJS (`apps/api`)
+- **Banco de Dados:** PostgreSQL
+- **Monorepo:** Nx
+- **Gerenciador de pacotes:** PNPM
+
+---
+
+## Requisitos
+
+- [Node.js](https://nodejs.org/) (recomendado: v18+)
+- [PNPM](https://pnpm.io/) (recomendado: v8+)
+- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) (opcional, para execução via containers)
+
+---
+
+## Instalação e Execução Local (PNPM + Nx)
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/bookmark-app.git
+   cd bookmark-app
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   pnpm install
+   ```
+
+3. **Configure as variáveis de ambiente:**
+   - Copie o arquivo `.env.example` para `.env` e ajuste conforme necessário.
+
+4. **Suba o banco de dados (opcional, se não for usar Docker Compose):**
+   - Você pode rodar um PostgreSQL localmente ou usar o Docker Compose apenas para o banco:
+     ```bash
+     docker compose up -d postgres
+     ```
+
+5. **Execute o backend:**
+   ```bash
+   pnpm nx serve api
+   ```
+   O backend estará disponível em `http://localhost:3000`.
+
+6. **Execute o frontend:**
+   ```bash
+   pnpm nx serve ui
+   ```
+   O frontend estará disponível em `http://localhost:4200`.
+
+---
+
+## Execução com Docker Compose
+
+A maneira mais simples de rodar toda a stack (frontend, backend e banco) é via Docker Compose:
+
+1. **Configure as variáveis de ambiente:**
+   - Copie `.env.example` para `.env` e ajuste as variáveis conforme necessário.
+
+2. **Suba todos os serviços:**
+   ```bash
+   docker compose up --build
+   ```
+
+3. **Acesse a aplicação:**
+   - Frontend: [http://localhost:4200](http://localhost:4200)
+   - Backend (API): [http://localhost:3000](http://localhost:3000)
+   - Banco de dados: [localhost:5432](localhost:5432) (PostgreSQL)
+
+4. **Parar os containers:**
+   ```bash
+   docker compose down
+   ```
+
+---
+
+## Estrutura do Projeto
+
+```
+bookmark-app/
+├── apps/
+│   ├── api/         # Backend (Node.js/NestJS)
+│   └── ui/          # Frontend (Angular)
+├── libs/            # Bibliotecas compartilhadas (se houver)
+├── compose.yml      # Docker Compose
+├── package.json     # Dependências e scripts do monorepo
+├── pnpm-workspace.yaml
+├── nx.json          # Configuração do Nx
+└── ...
 ```
 
-## Run tasks
+---
 
-To build the library use:
+## Comandos Úteis Nx
 
-```sh
-npx nx build pkg1
-```
+- **Build frontend:**  
+  `pnpm nx build ui`
 
-To run any task with Nx use:
+- **Build backend:**  
+  `pnpm nx build api`
 
-```sh
-npx nx <target> <project-name>
-```
+- **Rodar backend:**  
+  `pnpm nx serve api`
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+- **Rodar frontend:**  
+  `pnpm nx serve ui`
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- **Lint:**  
+  `pnpm nx lint api`  
+  `pnpm nx lint ui`
 
-## Versioning and releasing
+- **Executar todos os builds e testes afetados:**  
+  `pnpm nx affected -t test build`
 
-To version and release the library use
+---
 
-```
-npx nx release
-```
+## Licença
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+Este projeto está sob a licença MIT.
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Se precisar de mais detalhes ou quiser expandir o README com exemplos de uso da API, testes ou contribuições, é só avisar!
