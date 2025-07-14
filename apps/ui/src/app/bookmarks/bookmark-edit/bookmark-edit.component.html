@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Editar Bookmark</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="box">
+      <div class="field">
+        <label class="label">Título</label>
+        <div class="control">
+          <input class="input" type="text" formControlName="title" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">URL</label>
+        <div class="control">
+          <input class="input" type="url" formControlName="url" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Categoria</label>
+        <div class="control">
+          <input class="input" type="text" formControlName="category" required placeholder="Ex: Trabalho, Estudo, Pessoal">
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" type="submit" [disabled]="form.invalid">Salvar</button>
+        </div>
+        <div class="control">
+          <a class="button is-light" routerLink="/bookmarks">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

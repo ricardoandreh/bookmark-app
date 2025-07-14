@@ -1,0 +1,20 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Detalhes do Bookmark</h1>
+    <div *ngIf="bookmark; else loadingOrError">
+      <div class="content">
+        <p><strong>Título:</strong> {{ bookmark.title }}</p>
+        <p><strong>URL:</strong> <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a></p>
+        <span *ngIf="bookmark.category" class="tag is-info">{{ bookmark.category }}</span>
+        <p class="is-size-7 has-text-grey mt-2"><strong>Criado em:</strong> {{ bookmark.createdAt | date : 'short' }}</p>
+      </div>
+      <div class="buttons mt-4">
+        <a class="button is-link" [routerLink]="['/bookmarks', bookmark.id, 'edit']">Editar</a>
+        <a class="button is-light" routerLink="/bookmarks">Voltar</a>
+      </div>
+    </div>
+    <ng-template #loadingOrError>
+      <div class="notification is-light">Carregando ou bookmark não encontrado.</div>
+    </ng-template>
+  </div>
+</section>

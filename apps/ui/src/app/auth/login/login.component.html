@@ -1,0 +1,67 @@
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+          <form [formGroup]="form" (ngSubmit)="submit()" class="box">
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left">
+                <input
+                  type="email"
+                  placeholder="exemplo@email.com"
+                  class="input"
+                  [class.is-danger]="form.get('email')?.invalid && form.get('email')?.touched"
+                  formControlName="email"
+                  required
+                >
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </div>
+              <p class="help is-danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+                Por favor, insira um email válido
+              </p>
+            </div>
+
+            <div class="field">
+              <label class="label">Senha</label>
+              <div class="control has-icons-left">
+                <input
+                  type="password"
+                  placeholder="********"
+                  class="input"
+                  [class.is-danger]="form.get('password')?.invalid && form.get('password')?.touched"
+                  formControlName="password"
+                  required
+                >
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </div>
+              <p class="help is-danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+                Por favor, insira sua senha
+              </p>
+            </div>
+
+            <div class="field" *ngIf="error">
+              <p class="help is-danger">{{ error }}</p>
+            </div>
+
+            <div class="field">
+              <button type="submit" [disabled]="form.invalid" class="button is-primary is-fullwidth">
+                Entrar
+              </button>
+            </div>
+          </form>
+
+          <div class="field is-grouped is-grouped-centered mt-4">
+            <p>Não possui conta?
+              <a routerLink="/auth/register">Cadastre-se</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

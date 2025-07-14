@@ -1,0 +1,61 @@
+name: bookmark-app
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: bookmark-api
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "3000:3000"
+    networks:
+      - bookmark-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ui:
+    build:
+      context: .
+      dockerfile: apps/ui/Dockerfile
+    container_name: bookmark-ui
+    restart: unless-stopped
+    ports:
+      - "4200:80"
+    networks:
+      - bookmark-network
+    depends_on:
+      api:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16.9-alpine3.22
+    container_name: bookmark-db
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${DB_NAME:-bookmark}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    networks:
+      - bookmark-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  pgdata:
+
+networks:
+  bookmark-network:
+    driver: bridge

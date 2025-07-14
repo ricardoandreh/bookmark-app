@@ -1,0 +1,45 @@
+<nav class="navbar is-primary mb-5">
+  <div class="navbar-menu is-active">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <span class="mr-3">{{ userName }}</span>
+        <button class="button is-small is-danger" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Meus Bookmarks</h1>
+    <button class="button is-link mb-4" routerLink="/bookmarks/create">
+      Adicionar Bookmark
+    </button>
+
+    <div *ngIf="loading">Carregando...</div>
+
+    <div *ngIf="!loading && bookmarks.length === 0" class="notification is-light">
+      Nenhum bookmark cadastrado.
+    </div>
+
+    <div *ngIf="!loading && bookmarks.length > 0" class="columns is-multiline">
+      <div class="column is-4" *ngFor="let bm of bookmarks">
+        <div class="card">
+          <div class="card-content">
+            <p class="title is-5 mb-2">{{ bm.title }}</p>
+            <span *ngIf="bm.category" class="tag is-info mb-2">{{ bm.category }}</span>
+            <p class="subtitle is-7 mb-2">
+              <a [href]="bm.url" target="_blank">{{ bm.url }}</a>
+            </p>
+            <p class="is-size-7 has-text-grey">{{ bm.createdAt | date : 'short' }}</p>
+          </div>
+          <footer class="card-footer">
+            <a class="card-footer-item has-text-info" [routerLink]="['/bookmarks', bm.id]">Detalhes</a>
+            <a class="card-footer-item has-text-link" [routerLink]="['/bookmarks', bm.id, 'edit']">Editar</a>
+            <a class="card-footer-item has-text-danger" (click)="delete(bm.id)">Excluir</a>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

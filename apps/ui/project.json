@@ -1,0 +1,75 @@
+{
+  "name": "ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "root": "apps/ui",
+  "sourceRoot": "apps/ui/src",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ui",
+        "browser": "apps/ui/src/main.ts",
+        "tsConfig": "apps/ui/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/ui/public"
+          },
+          {
+            "glob": "favicon.ico",
+            "input": "apps/ui/src",
+            "output": "."
+          },
+          {
+            "glob": "assets/**",
+            "input": "apps/ui/src",
+            "output": "."
+          }
+        ],
+        "styles": ["apps/ui/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "ui:build:production"
+        },
+        "development": {
+          "buildTarget": "ui:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/ui/**/*.ts", "apps/ui/**/*.html"]
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "ui:build",
+        "staticFilePath": "dist/apps/ui",
+        "spa": true
+      }
+    }
+  }
+}
